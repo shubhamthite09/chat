@@ -34,7 +34,7 @@
             margin: 5px;
             border-radius: 5px;
             padding: 2px;
-            background-color: white;
+            color: white;
         }
         .div > p{
             margin: 0px;
@@ -65,6 +65,7 @@
 <script>
     const socket = io("https://chat-1egd.onrender.com", { transports: ["websocket"] })
     var name;
+     let col = 'rgba(' + randomcolor() + ',' + randomcolor() + ',' + randomcolor() + '\)'
     document.getElementById("enter_btn").addEventListener("click",()=>{
         console.log(name);
         name = document.getElementById("name").value;
@@ -75,29 +76,32 @@
 
     document.getElementById("send_btn").addEventListener("click",()=>{
         let msg = document.getElementById("msg_input").value
-        socket.emit("chat1",{name,msg})
+        socket.emit("chat1",{name,msg,col})
     })
 
     socket.on("chat2",(data)=>{
         if(data.name && data.msg){
-            chatMessage(data.msg,data.name,data.name == name ? true : false)
+            chatMessage(data.msg,data.name,data.name == name ? true : false,data.col)
         }
     })
+    function randomcolor() {
+            return Math.floor(Math.random() * 255);
+    }
 
-
-    function chatMessage(data,name,self){
+    function chatMessage(data,name,self,col){
         let div = document.createElement("div")
         div.setAttribute("class","div")
+         div.style.backgroundColor = col;
         let message = document.createElement("h4")
         let sender = document.createElement("p")
         let time = document.createElement("p")
         message.innerText=data
-        sender.innerText = self ? "Me":name
+        sender.innerText = self ? "":name
         time.innerText= new Date().toLocaleTimeString().split(":").splice(0,2).join(":")
         div.style.textAlign= self ? "right" : "left"
         div.style.width= "30%";
         if(self){div.style.marginLeft= "60%"}else(div.style.marginRight= "60%")
-        sender.style.textAlign= self ? "left"  : "right"
+        sender.style.textAlign= "left"
         div.append(sender,message,time)
         document.getElementById("box").append(div)
     }
