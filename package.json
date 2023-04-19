@@ -4,7 +4,7 @@
   "description": "real time chat application",
   "main": "index.js",
   "scripts": {
-    "server":"nodemon index.js",
+    "server": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "nodemon": "^2.0.22",
     "socket.io": "^4.6.1"
   }
 }

@@ -13,10 +13,11 @@
             text-align: center;
         }
         #box{
-            width: 30%;
-            height: 50vh;
+            border: 1px solid red;
+            width: 40%;
+            height: 90vh;
             margin: auto;
-            background-color: aliceblue;
+            background-color: rgb(120, 122, 124);
         }
         #msg_input{
             margin: 5px;
@@ -29,8 +30,10 @@
             margin: 0px;
         }
         .div{
-            margin: 10px;
+            margin: 5px;
+            border-radius: 5px;
             padding: 2px;
+            background-color: white;
         }
         .div > p{
             margin: 0px;
@@ -57,9 +60,9 @@
         <button id="send_btn">send</button>
     </div>
 </body>
-<script src="socket.io/socket.io.js"></script>
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
 <script>
-    const socket = io();
+    const socket = io("http://localhost:7890/", { transports: ["websocket"] })
     var name;
     document.getElementById("enter_btn").addEventListener("click",()=>{
         console.log(name);
@@ -91,6 +94,9 @@
         sender.innerText = self ? "Me":name
         time.innerText= new Date().toLocaleTimeString().split(":").splice(0,2).join(":")
         div.style.textAlign= self ? "right" : "left"
+        div.style.width= "30%";
+        if(self){div.style.marginLeft= "60%"}else(div.style.marginRight= "60%")
+        sender.style.textAlign= self ? "left"  : "right"
         div.append(sender,message,time)
         document.getElementById("box").append(div)
     }
