@@ -17,7 +17,7 @@
             width: 40%;
             height: 90vh;
             margin: auto;
-            background-image: url("https://i.pinimg.com/736x/8c/98/99/8c98994518b575bfd8c949e91d20548b.jpg");
+            background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
             overflow-y : scroll;
         }
         #msg_input{
@@ -91,17 +91,18 @@
     function chatMessage(data,name,self,col){
         let div = document.createElement("div")
         div.setAttribute("class","div")
-         div.style.backgroundColor = col;
         let message = document.createElement("h4")
         let sender = document.createElement("p")
+        sender.style.color = col;
         let time = document.createElement("p")
         message.innerText=data
         sender.innerText = self ? "":name
         time.innerText= new Date().toLocaleTimeString().split(":").splice(0,2).join(":")
         div.style.textAlign= self ? "right" : "left"
+        time.style.textAlign= self ? "left" : "right"
         div.style.width= "30%";
         if(self){div.style.marginLeft= "60%"}else(div.style.marginRight= "60%")
-        sender.style.textAlign= "left"
+        sender.style.textAlign= self ?"right" : "left" 
         div.append(sender,message,time)
         document.getElementById("box").append(div)
     }
